@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: ngcloudsec/threat-db
-          path: threat-db
+          path: .
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
@@ -32,7 +32,7 @@ jobs:
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.4.1
         with:
-          charts_dir: threat-db/contrib/helm/threat-db
+          charts_dir: contrib/helm/threat-db
           config: cr.yaml
           charts_repo_url: https://ngcloudsec.github.io/charts
         env:
