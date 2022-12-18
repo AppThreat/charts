@@ -1,0 +1,39 @@
+name: Release Charts
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+jobs:
+  release:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Checkout dep-scan
+        uses: actions/checkout@v3
+        with:
+          repository: ngcloudsec/threat-db
+          path: threat-db
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.10.0
+
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.4.1
+        with:
+          charts_dir: threat-db/contrib/helm/threat-db
+          config: cr.yaml
+          charts_repo_url: https://ngcloudsec.github.io/charts
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
