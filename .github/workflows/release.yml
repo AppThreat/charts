@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Checkout dep-scan
+      - name: Checkout charts
         uses: actions/checkout@v3
         with:
           repository: ngcloudsec/threat-db
@@ -37,3 +37,4 @@ jobs:
           charts_repo_url: https://ngcloudsec.github.io/charts
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          CR_SKIP_EXISTING: false
