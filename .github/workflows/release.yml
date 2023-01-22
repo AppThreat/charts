@@ -17,7 +17,7 @@ jobs:
       - name: Checkout charts
         uses: actions/checkout@v3
         with:
-          repository: ngcloudsec/threat-db
+          repository: appthreat/threat-db
           path: .
       - name: Configure Git
         run: |
@@ -34,7 +34,7 @@ jobs:
         with:
           charts_dir: contrib/helm/threat-db
           config: cr.yaml
-          charts_repo_url: https://ngcloudsec.github.io/charts
+          charts_repo_url: https://appthreat.github.io/charts
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           CR_SKIP_EXISTING: false
